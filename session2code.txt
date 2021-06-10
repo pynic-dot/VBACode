@@ -1,0 +1,11 @@
+Sub Range_Property_Method_Example()
+'Range("b6").Value = Range("b5").Value
+'Range("b7").Value = Range("b5").Text
+'typename(Range("b5").Text)
+'typename(Range("b5").Value)
+'range("b6").Interior.ColorIndex
+'range("b6").Interior.color
+
+ Range("b6").Delete xlShiftToLeft
+ Range("b9").EntireRow.Delete
+End Sub
