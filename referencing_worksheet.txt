@@ -1,0 +1,14 @@
+Sub referencing_worksheet()
+'Dim sh As Worksheet
+'Set sh = ActiveSheet
+'Worksheets(6).Select
+'Sheets(7).Select
+'Worksheets("Activity").Select
+'Sheet6.Range("a6").Value = "amit"
+Sheet5.Range("a5").CurrentRegion.Copy Sheet6.Range("A3")
+
+
+
+End Sub
+
+

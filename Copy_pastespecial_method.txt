@@ -1,0 +1,24 @@
+Sub copy_resize()
+' Copying data from one range to other
+'Copy method
+Range("j4:N10").ClearContents
+Range("A4:E10").Copy Range("j4")
+Range("A5").CurrentRegion.Copy Range("J4")
+
+' PasteSpecial Method
+
+Range("a5").CurrentRegion.Copy
+Range("j19").PasteSpecial xlPasteFormulasAndNumberFormats
+Range("j19").PasteSpecial xlPasteComments
+
+'Resize property with copy method
+Range("a5").CurrentRegion.Offset(1, 0).Resize(Range("a5"). _
+CurrentRegion.Rows.Count - 1).Copy
+Range("A19").PasteSpecial xlPasteValuesAndNumberFormats
+Application.CutCopyMode = False
+
+
+
+
+End Sub
+

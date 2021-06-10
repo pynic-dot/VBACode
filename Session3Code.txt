@@ -1,0 +1,24 @@
+Sub finding_Last_row()
+'finding the last row
+Range("k6:k12").ClearContents
+Range("A5", "a" & Cells(Rows.Count, 1).End(xlUp).Row).EntireRow.Interior.Color = Excel.Constants.xlNone
+
+
+Range("k6").Value = Range("A4").End(xlDown).Row
+Range("k6").Value = Range("a15000").End(xlUp).Address
+Range("k6").Value = Range("a" & Rows.Count).End(xlUp).Row
+Range("k7").Value = Range("a" & Rows.Count).End(xlUp).Offset(1, 0).Row
+Range("k8").Value = Range("a4").End(xlToRight).Column
+Range("k8").Value = Cells(4, Columns.Count).End(xlToLeft).Address
+Range("k9").Value = Range("a8").CurrentRegion.Address
+Range("k10").Value = Range("a8").CurrentRegion.Rows.Count
+Range("k11").Value = Cells.SpecialCells(xlCellTypeLastCell).Address
+Range("k12").Value = ActiveSheet.UsedRange.Rows.Count
+
+
+Range("A4").End(xlDown).EntireRow.Interior.Color = VBA.ColorConstants.vbGreen
+
+
+
+
+End Sub
