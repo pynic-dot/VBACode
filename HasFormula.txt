@@ -1,0 +1,40 @@
+Sub findinf_formula()
+
+'Range("b6").Value
+Dim i As Range
+Dim j As Integer
+j = 0
+For Each i In Range("A1:d10")
+    If i.HasFormula Then
+        j = j + 1
+        
+    End If
+Next i
+
+Range("b6").Value = j
+
+
+End Sub
+ 
+
+
+__________________________________________________________________________
+
+Sub findinf_formula()
+
+'Range("b6").Value
+Dim i As Range
+Dim j As Integer
+'For Each i In Range("A1:d10")
+For Each i In ActiveSheet.UsedRange
+    
+    If i.HasFormula Then
+        j = j + 1
+        
+    End If
+Next i
+
+Range("b6").Value = j
+
+
+End Sub

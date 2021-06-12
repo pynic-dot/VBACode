@@ -1,0 +1,30 @@
+
+Sub Hiding_sheets()
+
+Dim i As Worksheet
+
+For Each i In ThisWorkbook.Worksheets
+    
+    If i.CodeName = "Sheet4" Then
+    i.Visible = False
+    End If
+    
+    
+Next i
+
+End Sub
+
+______________________________________________________________________
+
+
+Sub UnHiding_sheets()
+
+Dim i As Worksheet
+
+For Each i In ThisWorkbook.Worksheets
+    
+    i.Visible = True
+    
+Next i
+
+End Sub
