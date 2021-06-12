@@ -1,0 +1,25 @@
+Sub hardcoded_workbook_copy_Nomacro()
+
+'    ' 1 Save the curent workbook
+'    ThisWorkbook.Save
+'
+'    ' 2. Select all sheets
+'
+'    Sheets.Select
+'    Cells.Copy
+'    Cells.PasteSpecial xlPasteValues
+'
+'    '3. Save the workbook with saveAS
+'    '4. Save it in the same directory as this workbook
+
+'ThisWorkbook.SaveAs Filename:=ThisWorkbook.Path & "\HC_" & VBA.Format(VBA.Date, "YYMMDD") & _
+'"_" & ThisWorkbook.Name, FileFormat:=Excel.xlOpenXMLWorkbook
+Application.DisplayAlerts = False
+
+ThisWorkbook.SaveAs Filename:=ThisWorkbook.Path & "\HC_" & VBA.Format(VBA.Date, "YYMMDD") & _
+"_" & VBA.Replace(ThisWorkbook.Name, ".xlsm", ""), FileFormat:=Excel.xlOpenXMLWorkbook
+
+Application.DisplayAlerts = True
+
+
+End Sub

@@ -1,0 +1,29 @@
+Option Explicit
+
+Public Sub Defining_variable()
+Dim lastrow As Long
+'Dim lastrow As Integer
+'Dim lastrow As Integer, firstrow as integer
+
+
+Let lastrow = Rows.Count
+Debug.Print lastrow
+
+'Defining Array
+Dim MyMonth(1 To 12) As String
+MyMonth(1) = "Jan"
+MyMonth(2) = "Feb"
+MyMonth(3) = "Mar"
+
+' another ways to defining array
+
+Dim monthsarr(11) As String
+' the lower bound is 0
+' 2D array
+
+Dim twoDarr(1 To 12, 1 To 3) As Variant
+' defining constant
+
+Const myconst As String = "Actual"
+
+End Sub

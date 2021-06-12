@@ -1,0 +1,115 @@
+Option Explicit
+-----------------------------------------------------------------------------------------------------------------------------------------
+Sub if_statement()
+
+If Range("b3").Value <> "" Then
+    Range("c3").Value = Range("b3").Value
+End If
+
+If Range("b4").Value > 0 And Range("b4") <= 400 Then
+    Range("c4").Value = Range("B4").Value
+End If
+
+End Sub
+
+____________________________________________________________________________
+Sub protect_all_sheet()
+Dim sh As Worksheet
+
+For Each sh In ThisWorkbook.Worksheets
+    sh.Protect
+'    Debug.Print sh.Name
+    
+Next sh
+
+
+End Sub
+
+__________________________________________________________________________
+Sub protect_special_sheet()
+
+Dim sh As Worksheet
+For Each sh In ThisWorkbook.Worksheets
+
+    If sh.Name = "Purpose" Then
+        sh.Protect "test"
+        
+    ElseIf sh.CodeName = "Sheet7" Then
+    ' Do nothing
+    
+    Else
+
+        sh.Protect Password:="test", AllowFormattingCells:=True _
+        , AllowFormattingColumns:=True, AllowFormattingRows:=True '
+    End If
+Next sh
+
+End Sub
+_________________________________________________________________________________
+Sub simple_goto()
+
+If VBA.IsError(Range("b3").Value) Then GoTo GetOut
+Range("c3").Value = Range("b3").Value
+
+
+GetOut:
+ MsgBox ("There is an error")
+End Sub
+
+Sub simple_select()
+
+Select Case Range("b3").Value
+    Case 1 To 200
+     Range("c3").Value = "Good"
+    Case 0
+     Range("c3").Value = "Empty"
+    Case Is > 200
+     Range("c3").Value = "Excellent"
+    Case Else
+    Range("c3").Value = "Bad"
+    
+End Select
+
+End Sub
+
+______________________________________________________________________________________
+Sub Unprotect_all_sheet()
+Dim sh As Worksheet
+
+For Each sh In ThisWorkbook.Worksheets
+    sh.Unprotect
+'    Debug.Print sh.Name
+    
+
+Next sh
+
+
+End Sub
+
+__________________________________________________________________________________________
+Sub with_change_font()
+Dim myrange As Range
+Set myrange = Range("a10", "a" & Cells(Rows.Count, 1).End(xlUp).Row)
+With myrange.Font
+    .Name = "Arial"
+    .Size = 12
+    .Bold = True
+End With
+
+End Sub
+
+___________________________________________________________________________________________
+Sub with_change_Reset_font()
+Dim myrange As Range
+Set myrange = Range("a10", "a" & Cells(Rows.Count, 1).End(xlUp).Row)
+With myrange.Font
+    .Name = "Calibri"
+    .Size = 11
+    .Bold = False
+    
+End With
+
+End Sub
+
+
+

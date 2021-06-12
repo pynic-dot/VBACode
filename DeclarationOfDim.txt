@@ -1,0 +1,19 @@
+Option Explicit
+
+Sub MoreDeclration()
+
+Dim newworkbook As Workbook
+Dim newsheets As Worksheet
+Dim newrang As Range
+' if the the type is as an object then use SET
+
+Set newworkbook = Workbooks.Add
+Set newsheets = newworkbook.Sheets(1)
+newsheets.Range("A1").Value = "New One"
+
+Set newrang = ThisWorkbook.Worksheets("DIM").Range("b5:d5")
+newrang.Font.Bold = True
+newrang.Interior.Color = VBA.ColorConstants.vbBlue
+
+End Sub
+

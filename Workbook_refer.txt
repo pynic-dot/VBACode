@@ -1,0 +1,14 @@
+Sub referencing_workbooks()
+
+Application.Workbooks.Open "E:\VBA Course Content\S4_ReferencingRanges_Start.xlsm"
+
+' Workbook referencing
+Dim i As String
+'i = ActiveWorkbook.FullName
+i = ActiveWorkbook.Path
+ThisWorkbook.Worksheets("Copy_resize").Range("A4").CurrentRegion.Copy _
+Workbooks("destBook.xls")
+Debug.Print i
+
+End Sub
+
