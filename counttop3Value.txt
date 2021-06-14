@@ -1,0 +1,18 @@
+Sub Activity()
+Dim inputRange As Range
+Dim top1 As Long, top2 As Long, top3 As Long
+On Error GoTo leave
+Set inputRange = Excel.Application.InputBox("Select a range of numbers to get the Top 3 values", "Top 3", , , , , , 8)
+If Excel.WorksheetFunction.Count(inputRange) > 3 Then
+
+top1 = Excel.Application.WorksheetFunction.Large(inputRange, 1)
+top2 = Excel.Application.WorksheetFunction.Large(inputRange, 2)
+top3 = Excel.Application.WorksheetFunction.Large(inputRange, 3)
+VBA.msgBox "Top 1 - " & top1 & vbNewLine & "Top 2 - " & top2 & vbNewLine & "Top 3 - " & top3
+Else
+VBA.msgBox "please select at least 3 cells", vbInformation
+End If
+
+leave:
+        
+End Sub
