@@ -1,0 +1,108 @@
+Sub excel_inputbox()
+Dim Cname As String
+Dim nextRow As Long, camount As Long
+
+Cname = VBA.InputBox("Please Input New Customer Name", "Customer Master")
+nextRow = Cells(Rows.Count, 1).End(xlUp).Row + 1
+Range("a" & nextRow).Value = Cname
+camount = Excel.Application.InputBox(prompt:="Enter Amount", Title:="Amount", Type:=1)
+nextRow = Cells(Rows.Count, 2).End(xlUp).Row + 1
+Range("B" & nextRow).Value = camount
+End Sub
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+Sub Excel_inputbox_range()
+Dim myrange As Range
+Dim CellBlanck As Long, cellNum As Long, cellother As Long
+On Error GoTo leave
+
+Set myrange = Excel.Application.InputBox("Count the Number of cells", "checking cells", , , , , , 8)
+CellBlanck = Excel.WorksheetFunction.CountBlank(myrange)
+cellNum = Excel.WorksheetFunction.Count(myrange)
+cellother = Excel.WorksheetFunction.CountA(myrange) - cellNum
+VBA.msgBox CellBlanck & "cells are blanck." & vbNewLine _
+& cellNum & "Cells have Numbers." & vbNewLine _
+& cellother & "cells are non-Numeric."
+
+leave:
+
+
+End Sub
+
+_______________________________________________________________________________________________________
+Sub msgBox()
+
+'VBA.Interaction.msgBox "Hello " & Excel.Application.UserName, , "Welcome!"
+
+VBA.msgBox prompt:="Hello " & Excel.Application.UserName & "." & VBA.Constants.vbNewLine & "Thanks for stopping By.", Title:="Welcome!"
+
+End Sub
+
+_________________________________________________________________________________________________________
+Sub vba_inputbox()
+Dim Cname As String
+Dim nextRow As Long
+
+Cname = VBA.InputBox("Please Input New Customer Name", "Customer Master")
+
+nextRow = Cells(Rows.Count, 1).End(xlUp).Row + 1
+Range("a" & nextRow).Value = Cname
+ 
+
+End Sub
+
+__________________________________________________________________________________________________________
+Sub VBA_simple_inputBox()
+Dim myinp As String
+myinp = InputBox("Please Input Subtitle", "Subtitle Please...")
+If myinp = "" Then Exit Sub
+    Range("A2").Value = Excel.WorksheetFunction.Proper(myinp)
+
+End Sub
+
+__________________________________________________________________________________________________________
+Sub VBAfunc()
+ With Sheet1
+    .Range("B3").Value = VBA.Date
+    .Range("b6").Value = VBA.UCase(.Range("a6").Value)
+    .Range("b7").Value = VBA.LCase(.Range("a7").Value)
+    .Range("b8").Value = VBA.StrConv(.Range("a8").Value, vbProperCase)
+    .Range("b9").Value = Excel.Application.WorksheetFunction.Proper(.Range("a9").Value)
+      
+    Dim myrange As Range
+    Set myrange = .Range("b16").CurrentRegion
+    .Range("b11").Value = Excel.WorksheetFunction.Max(myrange)
+    
+    
+End With
+
+End Sub
+
+___________________________________________________________________________________________________________
+Sub VBA_function()
+Range("b3").Value = VBA.Month(VBA.Date)
+Range("b4").Value = VBA.MonthName(VBA.Month(VBA.Date))
+Range("c5").Value = VBA.MonthName(VBA.Month(VBA.Date), True)
+
+Range("b9").Value = VBA.IsEmpty(Range("a9"))
+Range("b10").Value = VBA.IsEmpty(Range("a10"))
+Range("b11").Value = VBA.IsEmpty(Range("a11"))
+End Sub
+
+
+__________________________________________________________________________________________________________
+
+Sub Yes_No_msgBox()
+Dim Answer As VbMsgBoxResult
+Answer = VBA.msgBox("Are you sure about this?", vbYesNo + vbQuestion + vbDefaultButton2, "Clear Cells")
+If Answer = vbYes Then
+Range("A7:B9").Clear
+Else
+    Exit Sub
+End If
+
+End Sub
+
+
+___________________________________________________________________________________________________________
