@@ -1,0 +1,127 @@
+Option Explicit
+Sub Top_3_Bid_Debug()
+'for tab Debug
+    Dim myRange As Range
+    Dim Top1 As Double
+    Dim Top2 As Double
+    Dim Top3 As Double
+
+    On Error GoTo Leave
+    
+    Set myRange = Application.InputBox("Select a range of numbers to get the Top 3 Values", "Top 3", , , , , , 8)
+    If Application.WorksheetFunction.Count(myRange) > 2 Then
+        Top1 = Application.WorksheetFunction.Large(myRange, 1)
+        Top2 = Application.WorksheetFunction.Large(myRange, 2)
+        Top3 = Application.WorksheetFunction.Large(myRange, 3)
+        
+        MsgBox "Top 1 = " & Top1 & vbNewLine & "Top 2 = " & Top2 & vbNewLine & "Top 3 = " & Top3
+    
+    Else
+        MsgBox "Please select at least 3 cells with numbers!", vbInformation
+    End If
+    
+Leave:
+
+End Sub
+
+_____________________________________________________________________________________________
+Sub Count_IF_formulas_Debug()
+'for tab Debug
+    Dim cell As Range
+    Dim CountFormula As Long
+    
+        For Each cell In ActiveSheet.UsedRange
+            If cell.HasFormula Then
+                CountFormula = CountFormula + 1
+            End If
+        Next cell
+        MsgBox "There are " & CountFormula & " formulas on this worksheet"
+        
+End Sub
+
+______________________________________________________________________________________________
+Sub Top_3_Bid_ErrorHandle()
+' for tab Errorhandle
+    Dim myRange As Range
+    Dim Top1 As Double
+    Dim Top2 As Double
+    Dim Top3 As Double, Top4 As Double
+    
+    On Error GoTo ErrorHandle
+    Set myRange = Application.InputBox("Select a range of numbers to get the Top 4 Values", "Top 4", , , , , , 8)
+    
+    If Application.WorksheetFunction.Count(myRange) > 3 Then
+        Top1 = Application.WorksheetFunction.Large(myRange, 1)
+        Top2 = Application.WorksheetFunction.Large(myRange, 2)
+        Top3 = Application.WorksheetFunction.Large(myRange, 3)
+        Top4 = Application.WorksheetFunction.Large(myRange, 4)
+        MsgBox "Top 1 = " & Top1 & vbNewLine & "Top 2 = " & Top2 & vbNewLine & "Top 3 = " & Top3 & vbNewLine & "Top 4 = " & Top4
+    
+    Else
+        MsgBox "Please select at least 4 cells with numbers!", vbInformation
+    End If
+
+Exit Sub
+
+ErrorHandle:
+    Select Case Err.Number
+        Case 424
+            Exit Sub
+        Case Else
+            MsgBox "An error has occurred. Please double-check your selection"
+    End Select
+    
+End Sub
+
+___________________________________________________________________________________________
+Sub Slower_code()
+'for tab Faster
+    Dim ShNew As Worksheet
+    Dim cell As Range
+    Application.StatusBar = "Wait"
+    Set ShNew = Worksheets.Add
+    For Each cell In ShNew.Range("A1:A100000")
+        cell.Value = 10
+    Next cell
+
+    ShNew.Delete
+    Sheet8.Select
+    Application.StatusBar = ""
+
+End Sub
+
+
+_____________________________________________________________________________________________
+Sub Faster_Code()
+'for tab Faster
+    Dim ShNew As Worksheet
+    Dim cell As Range
+    
+    'turn off some features
+    With Application
+        .StatusBar = "Short wait"
+        .ScreenUpdating = False
+        .DisplayAlerts = False
+        .Calculation = xlCalculationManual
+    End With
+
+    Set ShNew = Worksheets.Add
+    
+    For Each cell In ShNew.Range("A1:A100000")
+        cell.Value = 10
+    Next cell
+    
+    ShNew.Delete
+    Sheet8.Select
+    
+    'turn features on again
+    With Application
+        .ScreenUpdating = True
+        .Calculation = xlCalculationAutomatic
+        .DisplayAlerts = True
+        .StatusBar = ""
+        'in case you have used the copy and pastespecial methods, you could have a lot of data on the clipboard.
+        .Application.CutCopyMode = False
+    End With
+
+End Sub

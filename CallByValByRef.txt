@@ -1,0 +1,85 @@
+Option Explicit
+'all for tab SubScopeArg
+
+Private Sub Entry_Point()
+
+    With Application
+        .StatusBar = "Short wait"
+        .ScreenUpdating = False
+        .Calculation = xlCalculationManual
+        .DisplayAlerts = False
+    
+    End With
+    
+End Sub
+
+____________________________________________________________________________________
+Private Sub Exit_Point()
+
+    With Application
+        .ScreenUpdating = True
+        .Calculation = xlCalculationAutomatic
+        .DisplayAlerts = True
+        .StatusBar = ""
+        'in case you have used the copy and pastespecial methods, you could have a lot of data on the clipboard.
+        .Application.CutCopyMode = False
+    End With
+End Sub
+____________________________________________________________________________________________
+Sub Do_Stuff()
+
+    Dim ShNew As Worksheet
+    Dim cell As Range
+    
+    Call Entry_Point
+
+    Set ShNew = Worksheets.Add
+    For Each cell In ShNew.Range("A1:A100000")
+        cell.Value = 10
+    Next cell
+    
+    ShNew.Delete
+    Sheet8.Select
+    
+    Exit_Point
+
+End Sub
+_________________________________________________________________________________________
+Sub GetMyValue()
+    
+   Dim myValue As Double
+   Dim p As Variant
+
+    'assign value and percentage from cells
+    myValue = Range("A8").Value
+    p = Range("B8").Value
+   
+    If Application.WorksheetFunction.IsNumber(p) = True Then
+        'if there is a percentage value
+        Call myCalc(myValue, p)
+    Else
+        myCalc myValue, 1
+    End If
+   
+    MsgBox myValue & " :End Result"
+     
+ 
+End Sub
+
+
+___________________________________________________________________________________________
+'to try the difference between byRef (default) and byVal, change GetValue inside myCalc to ByVal Getvalue as you see in the commented code block below
+
+Private Sub myCalc(GetValue As Double, myPercent)
+
+    GetValue = GetValue * myPercent
+    MsgBox GetValue & " :Inside Private"
+    
+End Sub
+
+'Private Sub myCalc(ByVal GetValue, myPercent)
+'
+'    GetValue = GetValue * myPercent
+'    MsgBox GetValue & " :Inside Private"
+'
+'End Sub
