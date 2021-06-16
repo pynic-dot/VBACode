@@ -1,0 +1,44 @@
+Option Explicit
+
+Sub project_activity()
+
+Dim startcell As Range
+Dim endcell As Range
+Dim sh As Worksheet
+Dim shname As String
+Dim msgconfirm As VBA.VbMsgBoxResult ' for msgBox to confirm
+
+
+On Error Resume Next
+Set startcell = Excel.Application.InputBox("Where do you want to insert the table of content?" _
+& vbNewLine & "Please Select a Cell: ", "Insert Table", , , , , , 8)
+If Err.Number = 424 Then Exit Sub
+On Error GoTo Leave
+
+Set startcell = startcell.Cells(1, 1)
+Set endcell = startcell.Offset(Worksheets.Count - 2, 1)
+msgconfirm = VBA.MsgBox("This value in cells: " & vbNewLine & startcell.Address & " to " & endcell.Address & _
+" could be overwritten." & vbNewLine & " Would you like to continue?", vbOKCancel + vbDefaultButton2)
+If msgconfirm = vbCancel Then Exit Sub
+
+For Each sh In ActiveWorkbook.Worksheets
+shname = sh.Name
+    If ActiveSheet.Name <> shname Then
+        If sh.Visible = xlSheetVisible Then
+            ActiveSheet.Hyperlinks.Add Anchor:=startcell, Address:="", SubAddress:= _
+            "'" & shname & "'!A1", TextToDisplay:=shname
+            startcell.Offset(0, 1).Value = sh.Range("A1").Value
+            Set startcell = startcell.Offset(1, 0)
+        End If 'sheet is visible
+        
+        
+    End If 'sheet is not active sheet
+    
+
+Next sh
+Exit Sub
+
+Leave:
+MsgBox "Unfortunatly ERROR has occured!"
+
+End Sub
