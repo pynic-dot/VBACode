@@ -1,0 +1,38 @@
+Option Explicit
+
+Sub file_exist()
+Dim FileName As String
+FileName = VBA.FileSystem.Dir("E:\VBA Course Content\ALL_VBA_Section_Milestone_Files_In_One_Place\SectionFiles\S2_*Start.xls?")
+If FileName = VBA.Constants.vbNullString Then
+ VBA.MsgBox "File Not Found"
+ Else
+ Workbooks.Open "E:\VBA Course Content\ALL_VBA_Section_Milestone_Files_In_One_Place\SectionFiles\" & FileName
+ 
+
+End If
+
+End Sub
+
+_______________________________________________________________________________________________
+Sub path_exits()
+
+Dim path As String
+Dim folder As String
+Dim answer As VbMsgBoxResult
+
+path = "E:\VBA Course Content\ALL_VBA_Section_Milestone_Files_In_One_Place\SectionFiles\s2_tst"
+folder = Dir(path, vbDirectory)
+If folder = vbNullString Then
+answer = MsgBox("path doesn't exit. Would you Like to create on ?", vbYesNo)
+Select Case answer
+    Case vbYes
+        VBA.FileSystem.MkDir (path)
+    Case Else
+    Exit Sub
+End Select
+
+Else
+VBA.MsgBox "Folder Exists"
+
+End If
+End Sub
