@@ -1,0 +1,60 @@
+Option Explicit
+Const StartRow As Byte = 10
+Dim lastRow As Long
+___________________________________________________________________________________________________
+
+Sub simple_for()
+Dim i As Long
+Dim myvalue As Double
+
+lastRow = Range("A" & StartRow).End(xlDown).Row
+For i = StartRow To lastRow
+    myvalue = Range("F" & i).Value
+    If myvalue > 400 Then Range("F" & i).Value = myvalue + 10
+    
+    If myvalue < 0 Then Exit For
+    
+Next i
+
+
+End Sub
+ _________________________________________________________________________________________________
+
+Sub for_next_loop_in_txt()
+
+ Dim i As Long ' for loopin inside the each cell
+ Dim myvalue As String
+ Dim numfound As Long
+ Dim txtfound As String
+ Dim r As Long
+ 
+ lastRow = Range("a" & Rows.Count).End(xlUp).Row
+ For r = StartRow To lastRow
+ 
+ myvalue = Range("a" & r).Value
+ For i = 1 To VBA.Len(myvalue)
+ If IsNumeric(VBA.Mid(myvalue, i, 1)) Then
+    numfound = numfound & Mid(myvalue, i, 1)
+    ElseIf Not IsNumeric(Mid(myvalue, i, 1)) Then
+    txtfound = txtfound & Mid(myvalue, i, 1)
+    End If
+    
+ 
+ Next i
+ Range("h" & r).Value = txtfound
+ Range("i" & r).Value = numfound
+ numfound = 0
+ txtfound = ""
+ 
+ Next r
+ 
+End Sub
+
+____________________________________________________________________________________________________
+
+
+Sub clear_content()
+lastRow = Range("a" & Rows.Count).End(xlUp).Row
+Range("h" & StartRow, "i" & lastRow).ClearContents
+
+End Sub

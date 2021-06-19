@@ -1,0 +1,19 @@
+Sub array_var()
+Dim quantityValue As Variant
+Dim r As Long
+
+quantityValue = Range("QuantityTb").Value
+
+
+'Debug.Print quantityValue(2, 1)
+
+
+For r = 1 To UBound(quantityValue)
+
+quantityValue(r, 1) = quantityValue(r, 1) + 10
+Next r
+
+Range("QuantityTb") = quantityValue
+
+End Sub
+
